@@ -1,0 +1,97 @@
+#!/usr/bin/env bash
+
+SCRIPT_DIR="${BASH_SOURCE%/*}/"
+ENV_FOLDER="$SCRIPT_DIR/venv"
+REQUIREMENTS_FILE="$SCRIPT_DIR/requirements.txt"
+
+main() {
+  if [[ $# -lt 1 ]]; then
+    usage bail
+  fi
+
+  local subcommand="$1"
+  case "$subcommand" in
+    run|env)
+      "$subcommand" "${@:2}"
+      ;;
+    *)
+      usage bail
+  esac
+}
+
+run() {
+  check_python_version
+  env
+  python3 "$SCRIPT_DIR/app.py" "$@"
+}
+
+env() {
+  if [[ $# -eq 1 ]]; then
+    if [[ "$1" == '-f' ]]; then
+      rm -rf "$ENV_FOLDER"
+    fi
+  fi
+  if [[ ! -d "$ENV_FOLDER" ]]; then
+    log_message "Creating env"
+    1>&2 python3 -m venv "$ENV_FOLDER"
+
+    source "$ENV_FOLDER/bin/activate"
+    if [[ -f "$REQUIREMENTS_FILE" ]]; then
+        log_message "Installing requirements"
+        1>&2 pip install --upgrade pip
+        1>&2 pip install -r requirements.txt
+    else
+        log_message "No requirements.txt file skipping requirements installation"
+    fi
+  else
+    source "$ENV_FOLDER/bin/activate"
+    log_message 'Env already exists skipping...'
+  fi
+}
+
+check_python_version() {
+  if ! type python3 >/dev/null 2>&1; then
+    log_message 'Missing executable, python3 not found in $PATH'
+    exit 1
+  fi
+
+  local python_version="$(python3 --version | awk '{print $2}')"
+  IFS='.' read -r -a python_version_split <<< "$python_version"
+  log_message "You are running python $python_version"
+
+  local major="${python_version_split[0]}"
+  local minor="${python_version_split[1]}"
+  local patch="${python_version_split[2]}"
+
+  if [[ "$major" -lt 3 ]]; then
+    log_message 'This code only runs on python3'
+    exit 1
+  elif [[ "$major" -eq 3 && "$minor" -lt 6 ]]; then
+    log_message 'Be advised, this code was only tested on python3.6!'
+  fi
+}
+
+log_message() {
+    1>&2 echo "$@"
+}
+
+
+usage() {
+  local bail="$1"
+
+
+  read -r -d '' usage_string <<EOF
+helper (run|env [-f])
+  run # runs the code
+  env [-f] # creates the environment
+    -f # forces env recreation and installs the requirements
+EOF
+
+  log_message -e "$usage_string"
+
+  if [[ ! -z "$bail" ]]; then
+    exit 1
+  fi
+}
+
+main "$@"
