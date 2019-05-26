@@ -1,12 +1,12 @@
 # getOSTEP
 Get the latest Operating Systems: Three Easy Pieces pdf files
 
-```bash
+```
 ./helper run -d "$HOME/books/ostep"
 pdftk "$HOME/books/ostep/*.pdf" cat output "Operating Systems: Three Easy Pieces.pdf"
 ```
 
-```bash
+```
 ./helper -h
 helper (run|env [-f])
   run # runs the code
@@ -14,7 +14,7 @@ helper (run|env [-f])
     -f # forces env recreation and installs the requirements
 ```
 
-```bash
+```
 python app.py --help
 usage: app.py [-h] -d DIRECTORY [-u URL] [-e ERRDATA_URL] [-f]
               [-l ERRDATA_FILENAME]
