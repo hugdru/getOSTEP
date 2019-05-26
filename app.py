@@ -37,7 +37,7 @@ def decide_if_download_book(latest_errdata_version, args):
         with open(errdata_version_filepath, 'rt', encoding='utf-8') as file:
             current_errdata_version = file.read()
         if current_errdata_version == latest_errdata_version:
-            print("Skipping you already have the latest version", file=sys.stderr)
+            print("Skipping you already have the latest OSTEP version", file=sys.stderr)
         else:
             print("Downloading your version is old", file=sys.stderr)
             to_download = True
