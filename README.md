@@ -15,7 +15,7 @@ helper (run|env [-f])
 ```
 
 ```bash
-❯ python app.py --help
+python app.py --help
 usage: app.py [-h] -d DIRECTORY [-u URL] [-e ERRDATA_URL] [-f]
               [-l ERRDATA_FILENAME]
 
