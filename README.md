@@ -3,7 +3,7 @@ Get the latest Operating Systems: Three Easy Pieces pdf files
 
 ```
 ./helper run -d "$HOME/books/ostep"
-pdftk "$HOME/books/ostep/*.pdf" cat output "Operating Systems: Three Easy Pieces.pdf"
+pdftk "$HOME/books/ostep/"*.pdf cat output "$HOME/books/ostep/Operating Systems: Three Easy Pieces.pdf"
 ```
 
 ```
