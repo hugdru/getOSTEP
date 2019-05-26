@@ -79,7 +79,6 @@ log_message() {
 usage() {
   local bail="$1"
 
-
   read -r -d '' usage_string <<EOF
 helper (run|env [-f])
   run # runs the code
