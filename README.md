@@ -1,11 +1,9 @@
 # getOSTEP
 Get the Operating Systems: Three Easy Pieces pdf files
 
-`
-❯ ./helper run -d "$HOME/books/ostep"
-❯ pdftk "$HOME/books/ostep/*.pdf" cat output "Operating Systems: Three Easy Pieces.pdf"
-`
-`
+`❯ ./helper run -d "$HOME/books/ostep"`
+`❯ pdftk "$HOME/books/ostep/*.pdf" cat output "Operating Systems: Three Easy Pieces.pdf"`
+
 ❯ ./helper -h                                                                                                     !937
 helper (run|env [-f])
   run # runs the code
