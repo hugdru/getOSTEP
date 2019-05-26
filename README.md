@@ -1,5 +1,5 @@
 # getOSTEP
-Get the Operating Systems: Three Easy Pieces pdf files
+Get the latest Operating Systems: Three Easy Pieces pdf files
 
 ```bash
 ./helper run -d "$HOME/books/ostep"
